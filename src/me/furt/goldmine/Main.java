@@ -38,7 +38,7 @@ public class Main extends CommonPlugin {
 
 	@Override
 	public void onDisable() {
-		getLogger().info("[GoldMine] Disabled.");
+		getLogger().info("Disabled.");
 
 	}
 
@@ -46,7 +46,7 @@ public class Main extends CommonPlugin {
 	public void onLoad() {
 		instance = this;
 		config = new GMConfig(getDataFolder());
-		getLogger().info("[GoldMine] Loaded.");
+		getLogger().info("Loaded.");
 	}
 
 	public static Main getInstance() {

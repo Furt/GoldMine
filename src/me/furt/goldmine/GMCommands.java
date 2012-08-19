@@ -1,6 +1,5 @@
 package me.furt.goldmine;
 
-import org.spout.api.chat.style.ChatStyle;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
 import org.spout.api.command.annotated.Command;
@@ -27,10 +26,21 @@ public class GMCommands {
 		if (es.exists(p)) {
 
 		}
+		
+		if (args.getString(0).equalsIgnoreCase("give") && args.length() == 3) {
+			if(GMConfig.SYMBOL_USE.getBoolean()) {
+				p.sendMessage("You have sent " + args.getString(1) + " " + GMConfig.CURRENCY_SYMBOL.getString() + args.getString(2));
+			}else{
+				if (args.getInteger(2) > 1)
+					p.sendMessage("You have sent " + args.getString(1) + " " + args.getString(2) + " " + GMConfig.NAME_PLURAL.getString());
+				else
+					p.sendMessage("You have sent " + args.getString(1) + " " + args.getString(2) + " " + GMConfig.NAME_SINGULAR.getString());
+			}
+		}
+		
 
 		if (args.getString(0).equalsIgnoreCase("test"))
-			p.sendMessage(ChatStyle.RED.toString() + "Test Command works"
-					+ ChatStyle.BLUE.toString() + "!!!");
+			p.sendMessage("Test Command works!!!");
 	}
 
 }
