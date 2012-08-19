@@ -1,28 +1,26 @@
 package me.furt.goldmine;
 
-public class GMAPI {
-	
-	private Main plugin;
+import com.xemsdoom.mexdb.MexDB;
 
-	public GMAPI(Main instance) {
-		this.plugin = instance;
+public class GMAPI {
+	MexDB db = new MexDB("plugin/GoldMine", "goldmine");
+	public GMAPI() {
+		db.autopush(false);
 	}
 	
 	public boolean hasAccount(String s) {
-		return true;
+		if(db.hasIndex(s))
+			return true;
+		
+		return false;
 	}
 	
 	public double getAmount(String s) {
-		return 0;
-		
+		return db.getDouble(s, "amount");
 	}
 	
-	public void setAmount(double d) {
-		
+	public void setAmount(String s, double d) {
+		db.setValue(s, "amount", d);
+		db.push();
 	}
-	
-	
-	
-	
-
 }
