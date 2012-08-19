@@ -1,0 +1,6 @@
+name: GoldMine
+version: 1.0 b1
+description: A simple economy plugin for spout.
+author: furt
+main: me.furt.goldmine.Main
+platform: BOTH
