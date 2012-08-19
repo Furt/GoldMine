@@ -1,31 +1,55 @@
 package me.furt.goldmine;
 
-import org.spout.api.Engine;
+import java.util.logging.Level;
+
+import org.spout.api.command.CommandRegistrationsFactory;
+import org.spout.api.command.annotated.AnnotatedCommandRegistrationFactory;
+import org.spout.api.command.annotated.SimpleAnnotatedCommandExecutorFactory;
+import org.spout.api.command.annotated.SimpleInjector;
+import org.spout.api.exception.ConfigurationException;
 import org.spout.api.plugin.CommonPlugin;
 import org.spout.api.plugin.ServiceManager.ServicePriority;
 import org.spout.api.plugin.services.EconomyService;
 
 public class Main extends CommonPlugin {
-	public final EconService econ = new EconService();
-	public Main instance;
-	public Engine engine;
-	
+	private final EconService econ = new EconService();
+	private static Main instance;
+	private GMConfig config;
+
 	@Override
 	public void onEnable() {
-		getEngine().getServiceManager().register(EconomyService.class, econ, this, ServicePriority.Highest);
+		try {
+			config.load();
+		} catch (ConfigurationException e) {
+			getLogger().log(Level.WARNING,
+					"Error loading GoldMine configuration: ", e);
+		}
+		getEngine().getServiceManager().register(EconomyService.class, econ,
+				this, ServicePriority.Highest);
+		CommandRegistrationsFactory<Class<?>> commandRegFactory = new AnnotatedCommandRegistrationFactory(
+				new SimpleInjector(this),
+				new SimpleAnnotatedCommandExecutorFactory());
+		getEngine().getRootCommand().addSubCommands(this, GMCommands.class,
+				commandRegFactory);
+		getEngine().getEventManager()
+				.registerEvents(new GMListener(this), this);
 		getLogger().info("v" + getDescription().getVersion() + " enabled.");
 	}
 
 	@Override
 	public void onDisable() {
-		getEngine().getLogger().info("Disabled.");
-		
+		getLogger().info("[GoldMine] Disabled.");
+
 	}
-	
+
 	@Override
 	public void onLoad() {
 		instance = this;
-		engine = getEngine();
-		getEngine().getLogger().info("Loaded.");
+		config = new GMConfig(getDataFolder());
+		getLogger().info("[GoldMine] Loaded.");
+	}
+
+	public static Main getInstance() {
+		return instance;
 	}
 }

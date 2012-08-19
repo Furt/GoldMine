@@ -1,4 +1,4 @@
-package me.furt.goldmine.data;
+package me.furt.goldmine;
 
 import com.alta189.simplesave.Field;
 import com.alta189.simplesave.Id;
