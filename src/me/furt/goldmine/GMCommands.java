@@ -8,14 +8,15 @@ import org.spout.api.exception.CommandException;
 import org.spout.api.plugin.services.EconomyService;
 
 public class GMCommands {
-	private Main plugin;
+	@SuppressWarnings("unused")
+	private final Main plugin;
 
 	public GMCommands(Main instance) {
 		this.plugin = instance;
 	}
 
-	@Command(aliases = { "goldmine", "gm" }, usage = "<set:give:take> <account> <amount>", desc = "All GoldMine commands use this.", min = 0, max = 3)
-	public void rollCredits(CommandContext args, CommandSource source)
+	@Command(aliases = {"goldmine"}, usage = "<set:give:take> <account> <amount>", desc = "All GoldMine commands use this.", min = 3, max = 3)
+	public void goldmine(CommandContext args, CommandSource source)
 			throws CommandException {
 		if (!(source instanceof Player)) {
 			throw new CommandException("You must be a player to use GoldMine.");
@@ -23,24 +24,33 @@ public class GMCommands {
 		Player p = (Player) source;
 
 		EconomyService es = EconomyService.getEconomy();
-		if (es.exists(p)) {
-
+		if (!es.exists(args.getString(1))) {
+			throw new CommandException("Cannot find account.");
 		}
 		
+		if (!es.exists(p.getName())) {
+			throw new CommandException("You do not have a account.");
+		}
+
 		if (args.getString(0).equalsIgnoreCase("give") && args.length() == 3) {
-			if(GMConfig.SYMBOL_USE.getBoolean()) {
-				p.sendMessage("You have sent " + args.getString(1) + " " + GMConfig.CURRENCY_SYMBOL.getString() + args.getString(2));
-			}else{
-				if (args.getInteger(2) > 1)
-					p.sendMessage("You have sent " + args.getString(1) + " " + args.getString(2) + " " + GMConfig.NAME_PLURAL.getString());
-				else
-					p.sendMessage("You have sent " + args.getString(1) + " " + args.getString(2) + " " + GMConfig.NAME_SINGULAR.getString());
+			if(!p.hasPermission("goldmine.give"))
+				throw new CommandException("You do not have permission to give money.");
+			
+			if (es.exists(args.getString(1)) && es.has(p.getName(), args.getDouble(2))) {
+				es.withdraw(p.getName(), args.getDouble(2));
+				es.deposit(args.getString(1), args.getDouble(2));
+
+				if (GMConfig.SYMBOL_USE.getBoolean()) {
+					p.sendMessage("You have sent " + args.getString(1) + " "
+							+ es.formatShort(args.getDouble(2)));
+				} else {
+					p.sendMessage("You have sent " + args.getString(1) + " "
+							+ es.format(args.getDouble(2)));
+				}
+			} else {
+				throw new CommandException("You do not have enough funds for this.");
 			}
 		}
-		
-
-		if (args.getString(0).equalsIgnoreCase("test"))
-			p.sendMessage("Test Command works!!!");
 	}
 
 }

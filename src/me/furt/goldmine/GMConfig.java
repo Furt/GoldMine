@@ -12,6 +12,7 @@ public class GMConfig extends ConfigurationHolderConfiguration {
 	public static final ConfigurationHolder NAME_PLURAL = new ConfigurationHolder("Dollars", "general", "currency", "name", "plural");
 	public static final ConfigurationHolder CURRENCY_SYMBOL = new ConfigurationHolder("$", "general", "currency", "symbol", "key");
 	public static final ConfigurationHolder SYMBOL_USE = new ConfigurationHolder(false, "general", "currency", "symbol", "use");
+	public static final ConfigurationHolder CREATE_ON_JOIN = new ConfigurationHolder(false, "general", "createOnJoin");
 	
 	public GMConfig(File dataFolder) {
 		super(new YamlConfiguration(new File(dataFolder, "config.yml")));

@@ -1,9 +1,11 @@
 package me.furt.goldmine;
 
 import com.xemsdoom.mexdb.MexDB;
+import com.xemsdoom.mexdb.exception.EmptyIndexException;
+import com.xemsdoom.mexdb.system.Entry;
 
 public class GMAPI {
-	MexDB db = new MexDB("plugin/GoldMine", "goldmine");
+	MexDB db = new MexDB("plugins/GoldMine", "goldmine");
 	public GMAPI() {
 		db.autopush(false);
 	}
@@ -21,6 +23,13 @@ public class GMAPI {
 	
 	public void setAmount(String s, double d) {
 		db.setValue(s, "amount", d);
+		db.push();
+	}
+
+	public void createAccount(String name) throws EmptyIndexException {
+		Entry e = new Entry(name);
+		e.addValue("amount", 0.0);
+		db.addEntry(e);
 		db.push();
 	}
 }
