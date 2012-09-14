@@ -85,7 +85,7 @@ public class EconService extends EconomyService {
 
 	@Override
 	public int numSignificantDigits() {
-		return 2;
+		return 3;
 	}
 
 }
