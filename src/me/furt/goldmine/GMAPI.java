@@ -28,7 +28,7 @@ public class GMAPI {
 
 	public void createAccount(String name) throws EmptyIndexException {
 		Entry e = new Entry(name);
-		e.addValue("amount", 0.0);
+		e.addValue("amount", 0.00);
 		db.addEntry(e);
 		db.push();
 	}

@@ -12,7 +12,9 @@ public class GMConfig extends ConfigurationHolderConfiguration {
 	public static final ConfigurationHolder NAME_PLURAL = new ConfigurationHolder("Dollars", "general", "currency", "name", "plural");
 	public static final ConfigurationHolder CURRENCY_SYMBOL = new ConfigurationHolder("$", "general", "currency", "symbol", "key");
 	public static final ConfigurationHolder SYMBOL_USE = new ConfigurationHolder(false, "general", "currency", "symbol", "use");
-	public static final ConfigurationHolder CREATE_ON_JOIN = new ConfigurationHolder(false, "general", "createOnJoin");
+	public static final ConfigurationHolder CREATE_ON_JOIN = new ConfigurationHolder(false, "account", "createOnJoin");
+	public static final ConfigurationHolder USE_PLAYER_NAME = new ConfigurationHolder(false, "account", "usePlayerName");
+	public static final ConfigurationHolder ACOUNT_NAME = new ConfigurationHolder("&world-&player", "account", "name");
 	
 	public GMConfig(File dataFolder) {
 		super(new YamlConfiguration(new File(dataFolder, "config.yml")));
