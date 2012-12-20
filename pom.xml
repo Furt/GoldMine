@@ -2,9 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.furt.goldmine</groupId>
   <artifactId>Goldmine</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <name>Goldmine</name>
   <description>This plugin is based upon 2 ideas. Being a simple economy data saving solution and for fully utilizing the economy service built into Spout.</description>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <main.class>me.furt.goldmine.Main</main.class>
+  </properties>
   <repositories>
     <repository>
       <id>spout-repo</id>
@@ -23,4 +27,24 @@
       <version>dev-SNAPSHOT</version>
     </dependency>
   </dependencies>
+  <build>
+    <finalName>${project.name}</finalName>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${jdk}</source>
+          <target>${jdk}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
