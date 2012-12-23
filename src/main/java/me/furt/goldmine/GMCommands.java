@@ -1,5 +1,6 @@
 package me.furt.goldmine;
 
+import org.spout.api.chat.ChatArguments;
 import org.spout.api.command.CommandContext;
 import org.spout.api.command.CommandSource;
 import org.spout.api.command.annotated.Command;
@@ -14,8 +15,20 @@ public class GMCommands {
 	public GMCommands(Main instance) {
 		this.plugin = instance;
 	}
+	@Command(aliases = "test", usage = "", desc = "Just a test command")
+	public void map(CommandContext args, CommandSource source)
+			throws CommandException {
+		if (args.length() != 0) {
+			throw new CommandException(
+					"This command does not require arguments");
+		} else if (!(source instanceof Player)) {
+			throw new CommandException("You must be a player.");
+		}
+		Player p = (Player) source;
+		p.sendMessage(new ChatArguments("This is a test"));
+	}
 
-	@Command(aliases = { "goldmine" }, usage = "<set:give:take> <account> <amount>", desc = "All GoldMine commands use this.", min = 3, max = 3)
+	@Command(aliases = "goldmine", usage = "<set:give:take> <account> <amount>", desc = "All GoldMine commands use this.", min = 3, max = 3)
 	public void goldmine(CommandContext args, CommandSource source)
 			throws CommandException {
 		if (!(source instanceof Player)) {
