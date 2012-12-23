@@ -1,5 +1,7 @@
 package me.furt.goldmine;
 
+import java.util.List;
+
 import org.spout.api.plugin.services.EconomyService;
 
 public class EconService extends EconomyService {
@@ -86,6 +88,91 @@ public class EconService extends EconomyService {
 	@Override
 	public int numSignificantDigits() {
 		return 3;
+	}
+
+	@Override
+	public boolean create(String name) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<String> getTopAccounts(int start, int end, boolean playersOnly) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean hasMulticurrencySupport() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<String> getCurrencyNames() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getCurrencyNamePlural(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getCurrencySymbol(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String format(String name, double amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String formatShort(String name, double amount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean withdraw(String name, double amount, String currency) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deposit(String name, double amount, String currency) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean has(String name, double amount, String currency) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public double get(String name, String currency) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<String> getTopAccounts(int start, int end, String currency,
+			boolean playersOnly) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double getExchangeRate(String currencyFrom, String currencyTo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
