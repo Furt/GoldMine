@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.spout.api.plugin.services.EconomyService;
 
+import com.xemsdoom.mexdb.exception.EmptyIndexException;
+
 public class EconService extends EconomyService {
 
 	@Override
@@ -92,8 +94,16 @@ public class EconService extends EconomyService {
 
 	@Override
 	public boolean create(String name) {
-		// TODO Auto-generated method stub
-		return false;
+		GMAPI api = new GMAPI();
+		if(api.hasAccount(name)) {
+			return false;
+		}
+		try {
+			api.createAccount(name);
+			return true;
+		} catch (EmptyIndexException e) {
+			return false;
+		}
 	}
 
 	@Override
@@ -104,13 +114,13 @@ public class EconService extends EconomyService {
 
 	@Override
 	public boolean hasMulticurrencySupport() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public List<String> getCurrencyNames() {
-		// TODO Auto-generated method stub
+		List<String> name;
+		
 		return null;
 	}
 

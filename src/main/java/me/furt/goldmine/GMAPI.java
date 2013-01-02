@@ -32,4 +32,11 @@ public class GMAPI {
 		db.addEntry(e);
 		db.push();
 	}
+	
+	public void removeAccount(String name) throws EmptyIndexException {
+		if(db.hasIndex(name)) {
+			db.removeEntry(name);
+			db.push();
+		}
+	}
 }
